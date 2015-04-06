@@ -4,6 +4,9 @@
 #include <list>
 #include <iterator>
 
+using namespace std;
+
+
 // declare BST here, so friend declaration below will work.
 template<typename X> class BST;
 
@@ -19,6 +22,8 @@ private:
    *  Note: this constructor is private; but friend classes can access.
    */ // TODO
   BSTIterator(BSTNode<Data>* curr) {
+  	//this is a pointer to instantiated object
+	this->curr = curr;	
   }
 
 
@@ -41,8 +46,10 @@ public:
    *  BSTNode, and return a reference to the updated BSTIterator.
    */
   BSTIterator<Data>& operator++() {
+    // curr is BSTNode pointer, so has the successor method available
+    // we are updating the BSTNode pointer that iterator stores as data member
     curr = curr->successor();
-    return *this;
+    return *this; // returns iterator
   }
 
   /** Post-increment operator. 
@@ -50,18 +57,34 @@ public:
    *  BSTNode, and return a copy of the old, non-updated BSTIterator.
    */
   BSTIterator<Data> operator++(int) {
+    // BSTIterator constructor called, initialized with current iterator's
+    // data member BSTNode
     BSTIterator before = BSTIterator(curr);
+    // derefence this iterator, and apply ++ operator
     ++(*this);
+    // return copy of old, non-updated BSTIterator
     return before;
   }
 
   /** Equality test operator. */ // TODO
   bool operator==(BSTIterator<Data> const & other) const {
+    if(this->curr == other.curr){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   /** Inequality test operator. */ // TODO
   bool operator!=(BSTIterator<Data> const & other) const {
-  }
+    if(this->curr != other.curr){
+      return true;
+    }
+    else{
+      return false;
+    }
+  } 
 
 };
 

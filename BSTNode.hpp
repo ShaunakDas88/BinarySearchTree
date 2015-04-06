@@ -3,6 +3,8 @@
 #include <iostream>
 #include <iomanip>
 
+using namespace std;
+
 
 /** This class template defines a node type for the BST container.
  *  Note that all members are public. So, the BST implementation should
@@ -36,10 +38,49 @@ public:
    *  or nullptr if there is none.
    */ // TODO
   BSTNode<Data>* successor() {
-
-  }
-
-}; 
+    BSTNode<Data>* successorNode;
+    
+    // if node has a right child
+    if(right != nullptr){
+     	successorNode = right;
+	// go all the way left!
+	while(successorNode->left != nullptr){
+	  successorNode = successorNode->left;
+	}
+        return successorNode;
+    }
+    // if node has no right child
+    else{
+      if(parent == nullptr){
+	return nullptr;
+      }
+      // this does have a parent
+      else{	
+    	// if this is a left child of its parent
+	if(parent->left == this){
+	  successorNode = parent;
+	  return successorNode;
+        } 
+        // if this is a right child of its parent, keep going up
+        else{
+          successorNode = parent;
+          while(successorNode->parent != nullptr){
+            // case that we finally have successorNode is a left child
+            if(successorNode->parent->left == successorNode){
+              successorNode = successorNode->parent;
+	      return successorNode;  // break out of while loop
+	    }
+            // case that successorNode is a still a right child
+            else{
+   	      successorNode = successorNode->parent;
+ 	    } // closes up else statement
+          } // closes up while loop
+          return nullptr; 
+	} // closes up else statement
+      } // closes up else statement 
+    } // closes up else statement 
+  } // closes up successor() method
+}; // closes up the class
 
 /** Overload operator<< to insert a BSTNode's fields in an ostream. */
 template <typename Data>

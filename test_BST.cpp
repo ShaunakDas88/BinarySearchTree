@@ -26,6 +26,7 @@ int main() {
   /* Insert a few data items. */
   vector<int>::iterator vit = v.begin();
   vector<int>::iterator ven = v.end();
+  cout << "\nTESTING THE INSERT METHOD:\n";
   for(; vit != ven; ++vit) {
     // all these inserts are unique, so should return a std::pair
     // with second part true
@@ -38,9 +39,10 @@ int main() {
       cout << "Incorrect iterator return value when inserting " << *vit << endl;
       return -1;
     }  
-  }
+  } 
 
   /* Test size. */
+  cout << "\nTESTING THE SIZE METHOD\n";
   cout << "Size is: " << b.size() << endl;
   if(b.size() != v.size()) {
     cout << "... which is incorrect." << endl;
@@ -48,34 +50,61 @@ int main() {
   }
 
   /* Test find return value. */
+  cout << "\nTESTING THE FIND METHOD:\n";
   vit = v.begin();
   for(; vit != ven; ++vit) {
+    cout << "Looking for an element.\n";
     if(*(b.find(*vit)) != *vit) {
       cout << "Incorrect return value when finding " << *vit << endl;
       return -1;
     }
   }
+  int number = -20;
+  b.find(number);
+  //if(*b.find(number) == nullptr){
+  //  cout << "Could not find element " << number << endl; 
+  //}
+  
   
   /* Sort the vector, to compare with inorder iteration on the BST */
   sort(v.begin(),v.end());
 
   /* Test BST iterator; should iterate inorder */
+  
+  cout << "\nTESTING THE BST ITERATOR!\n";
   cout << "traversal using iterator:" << endl;
-  vit = v.begin();
+  vit = v.begin(); // remember, v is a vector
   BST<int>::iterator en = b.end();
   BST<int>::iterator it = b.begin();
+  cout << "The beginning node is " << *it << endl;
+  //cout << "The end node is " << *en << endl;
   for(; vit != ven; ++vit) {
-    if(! (it != en) ) {
+    if(!(it != en) ) {
       cout << *it << "," << *vit << ": Early termination of BST iteration." << endl;
       return -1;
     }
-    cout << *it << endl;
-    if(*it != *vit) {
+    //cout << *it << endl;
+    else if(*it != *vit) {
       cout << *it << "," << *vit << ": Incorrect inorder iteration of BST." << endl;
       return -1;
+    }
+    else{
+      cout << "The correct element " << *vit << " was found\n";
     }
     ++it;
   }
   cout << "OK." << endl;
 
+  cout << "\nTESTING THE CLEAR METHOD!\n";
+  b.clear();
+  cout << "\nTESTING DUPLICATE INSERTION\n";
+  b.insert(100);
+  cout << "\nTESTING THE SIZE METHOD!\n";
+  cout << "\nThe number of elements is " << b.size() << endl;
+  cout << "TESTING FIND METHOD\n";
+  b.find(12);
+  b.clear();
+  b.find(100);
+
 }
+
