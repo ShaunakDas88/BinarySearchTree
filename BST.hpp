@@ -139,21 +139,6 @@ public:
     return;
   } 
 	
-  /** This will be a helper method that deletes a passed in BSTNode. 
-   *  This will be called by the clear() method 
-   */
-  void deleteNode(BSTNode<Data>* node){
-    if(node->left != nullptr){
-      deleteNode(node->left);
-    }
-    if(node->right != nullptr){
-      deleteNode(node->right);
-    }
-    delete node;
-    return; 
-  }
-  
-
   /** Return true if the BST is empty, else false.
    */ // TODO
   bool empty() const {
@@ -206,6 +191,25 @@ public:
       return enditerator;
     }
   } 
+
+private:
+
+  /** This will be a helper method that deletes a passed in BSTNode. 
+   *  This will be called by the clear() method 
+   */
+  void deleteNode(BSTNode<Data>* node){
+    if(node->left != nullptr){
+      deleteNode(node->left);
+    }
+    if(node->right != nullptr){
+      deleteNode(node->right);
+    }
+    delete node;
+    return; 
+  }
+
+
+
 };
 
 

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
@@ -94,17 +95,19 @@ int main() {
     ++it;
   }
   cout << "OK." << endl;
-
-  cout << "\nTESTING THE CLEAR METHOD!\n";
-  b.clear();
-  cout << "\nTESTING DUPLICATE INSERTION\n";
-  b.insert(100);
-  cout << "\nTESTING THE SIZE METHOD!\n";
-  cout << "\nThe number of elements is " << b.size() << endl;
-  cout << "TESTING FIND METHOD\n";
-  b.find(12);
-  b.clear();
-  b.find(100);
-
+  //cout << "\nBeginning node is " << *b.begin() << endl;
+  //cout << "\nTESTING THE CLEAR METHOD!\n";
+  //b.clear();
+  //cout << "\nTESTING DUPLICATE INSERTION\n";
+  //b.insert(100);
+  //cout << "\nTESTING THE SIZE METHOD!\n";
+  //cout << "\nThe number of elements is " << b.size() << endl;
+  //cout << "TESTING FIND METHOD\n";
+  //b.find(12);
+  //b.clear();
+  //cout << "Did i find it " << *b.find(1000) << endl;
+  b.insert(23);
+  cout << "The boolean value is " << std::get<1>(b.insert(3)) << endl;
+  cout << "The size is " << b.size() << endl;
 }
 
